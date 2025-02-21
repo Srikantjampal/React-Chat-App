@@ -71,15 +71,35 @@ const ChatContainer = () => {
                 {formatMessageTime(message.createdAt)}
               </time>
             </div>
-            <div className="chat-bubble flex flex-col">
-              {message.image && (
-                <img
-                  src={message.image}
-                  alt="Attachment"
-                  className="sm:max-w-[200px] rounded-md mb-2"
-                />
+            <div className="flex">
+            {message.senderId === authUser._id && (
+                <div
+                  className="delete-icon left-0 top-0 mr-1 pr-1"
+                  style={{
+                    display:
+                      hoveredMessageId === message._id && showDeleteIcon
+                        ? "block"
+                        : "none",
+                  }}
+                >
+                  <button
+                    className="text-red-500"
+                    onClick={() => openModal(message._id)}
+                  >
+                    <Trash2 size={16} />
+                  </button>
+                </div>
               )}
-              {message.text && <p>{message.text}</p>}
+              <div className="chat-bubble flex flex-col">
+                {message.image && (
+                  <img
+                    src={message.image}
+                    alt="Attachment"
+                    className="sm:max-w-[200px] rounded-md mb-2"
+                  />
+                )}
+                {message.text && <p>{message.text}</p>}
+              </div>
             </div>
           </div>
         ))}
