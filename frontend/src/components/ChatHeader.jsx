@@ -1,11 +1,14 @@
-import { X } from "lucide-react";
+import { Phone, X } from "lucide-react";
+import { PhoneCall } from "lucide-react";
 import { useAuthStore } from "../store/useAuthStore";
 import { useChatStore } from "../store/useChatStore";
+import { CallContext } from "../context/callContext";
+import { useContext } from "react";
 
 const ChatHeader = () => {
   const { selectedUser, setSelectedUser } = useChatStore();
   const { onlineUsers } = useAuthStore();
-
+  const {call,setCall }=useContext(CallContext);
   return (
     <div className="p-2.5 border-b border-base-300">
       <div className="flex items-center justify-between">
@@ -25,6 +28,10 @@ const ChatHeader = () => {
             </p>
           </div>
         </div>
+
+        <button onClick={() => setCall(!call)}>
+          <PhoneCall />
+        </button>
 
         {/* Close button */}
         <button onClick={() => setSelectedUser(null)}>
